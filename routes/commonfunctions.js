@@ -31,13 +31,16 @@ domainUrl = domainUrl + '/api/v0.1';
 saveHistory = async function(idDevice, meta) {
   var metaData = [];
   Object.keys(meta).forEach(function(key) {
-    metaData.push({k: key, v: meta[key]});
+    var keyString = key.toString();
+    var valueString = meta[key].toString();
+    metaData.push({k: keyString, v: valueString});
   });
 
   var history = new History({idDevice: idDevice, meta: metaData});
   return history.save().then(function(history) {
     return history;
   }).catch(error => {
+    console.log(error)
     next(error);
   });
 };
