@@ -40,7 +40,6 @@ saveHistory = async function(idDevice, meta) {
   return history.save().then(function(history) {
     return history;
   }).catch(error => {
-    console.log(error)
     next(error);
   });
 };
@@ -70,4 +69,55 @@ exports.saveAnHistory = async function(req, res, next) {
       "moreInfo": config.urlSupport + "500"
     });
   }
+}
+
+// route handler for an history delete
+exports.deleteAnHistory = async function(req, res, next) {
+  var id = (req.params.id).toString();
+  if (!id) {
+    message = 'No device id';
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  }
+
+  History.remove({idDevice: id}).then(function(result) {
+    console.log("Deleted " + result.n + " histories with device id: " + id);
+    return res.status(201).send(result);
+  }).catch(error => {
+    message = "Error deleting all histories with device id: " + id;
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  });
+
+}
+
+// route handler for histories reading
+exports.readHistories = async function(req, res, next) {
+  var id = (req.params.id).toString();
+  if (!id) {
+    message = 'No device id';
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  }
+
+  History.find({idDevice: id}).then(function(histories) {
+    console.log("Get all histories for device id: " + id);
+    return res.status(201).send(histories);
+  }).catch(error => {
+    message = "Error retrieving all histories with device id: " + id;
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  });
 }

@@ -19,7 +19,7 @@
  *       along with CMC-Hist.  If not, see <http://www.gnu.org/licenses/>.    *
  * ############################################################################
  */
- 
+
 var express = require('express');
 var router = express.Router();
 var commonFunction=require('./commonfunctions');
@@ -37,7 +37,6 @@ auth.configure({
 
 //authms middleware wrapper for dev environment (no authms required)
 function authWrap(req, res, next) {
-  console.log(req.body.access_token);
 if (!req.app.get("nocheck"))
   auth.checkAuthorization(req, res, next);
 else
@@ -53,10 +52,10 @@ res.render('index', {title: 'Cmc Histories'});
 router.post(restApiRoot + '/histories', authWrap, commonFunction.saveAnHistory);
 
 //read an history
-//router.get(restApiRoot + '/histories'/:id,  authWrap, commonFunction.saveAnHistory);
+router.get(restApiRoot + '/histories/:id',  authWrap, commonFunction.readHistories);
 
 //delete an entire history by id
-//router.delete(restApiRoot + '/histories'/:id,  authWrap, commonFunction.deleteAnHistory);
+router.delete(restApiRoot + '/histories/:id',  authWrap, commonFunction.deleteAnHistory);
 
 //search endpoints
 
