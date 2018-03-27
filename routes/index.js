@@ -57,6 +57,7 @@ router.get(restApiRoot + '/histories/:id',  authWrap, commonFunction.readHistori
 //delete an entire history by id
 router.delete(restApiRoot + '/histories/:id',  authWrap, commonFunction.deleteAnHistory);
 
-//search endpoints
+//search histories by date range
+router.get(restApiRoot + '/histories/:id/:startdate/:enddate',  authWrap, commonFunction.readHistoriesByDates);
 
 module.exports = router;
