@@ -29,13 +29,9 @@ domainUrl = domainUrl + '/api/v0.1';
 
 // save a new history
 saveHistory = async function(idDevice, meta) {
-  var metaData = [];
-  Object.keys(meta).forEach(function(key) {
-    var keyString = key.toString();
-    var valueString = meta[key].toString();
-    metaData.push({k: keyString, v: valueString});
-  });
-
+  var metaData;
+  var timeDevice;
+  metaData = meta;
   var history = new History({idDevice: idDevice, meta: metaData});
   return history.save().then(function(history) {
     return history;
@@ -148,6 +144,45 @@ exports.readHistoriesByDates = async function(req, res, next) {
   }
 console.log("Start date: " + new Date(startDate) )
   History.find({"time": {"$gte": new Date(startDate), "$lt": new Date(endDate)}}).then(function(histories) {
+    console.log("Get all histories for device id: " + id + " and timestamp range");
+    return res.status(201).send(histories);
+  }).catch(error => {
+    message = "Error retrieving all histories with device id: " + id + " and timestamp range";
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  });
+}
+
+// route handler for histories reading by dates
+exports.readHistoriesByDates = async function(req, res, next) {
+  var id = (req.params.id).toString();
+  // startdate param in the form: yyyy-mm-dd hh:mm:ss
+  var startDate =  (req.params.startdate).toString();
+  var endDate =  (req.params.enddate).toString();
+
+  if (!id) {
+    message = 'No device id';
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  }
+
+  if (!startDate || !endDate) {
+    message = 'Date range not valid';
+    return res.status(500).json({
+      "error": 500,
+      "errorMessage": message,
+      "moreInfo": config.urlSupport + "500"
+    });
+  }
+
+console.log("Start date: " + new Date(startDate) )
+  History.find({idDevice: id, "time": {"$gte": new Date(startDate), "$lt": new Date(endDate)}}).then(function(histories) {
     console.log("Get all histories for device id: " + id + " and timestamp range");
     return res.status(201).send(histories);
   }).catch(error => {

@@ -58,6 +58,6 @@ router.get(restApiRoot + '/histories/:id',  authWrap, commonFunction.readHistori
 router.delete(restApiRoot + '/histories/:id',  authWrap, commonFunction.deleteAnHistory);
 
 //search histories by date range
-router.get(restApiRoot + '/histories/:id/:startdate/:enddate',  authWrap, commonFunction.readHistoriesByDates);
+router.get(restApiRoot + '/histories/id/:id/start/:startdate/end/:enddate',  authWrap, commonFunction.readHistoriesByDates);
 
 module.exports = router;

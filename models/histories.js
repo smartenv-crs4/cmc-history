@@ -25,7 +25,8 @@ var Schema = mongoose.Schema;
 // Create new history schema
 var HistorySchema = new Schema({
     idDevice: String,
-    meta: [{k:String, v:String}],
+    meta: Object
+    //time : { type : Date, default: Date.now }
 },  { timestamps: { createdAt: 'time' } });
 
 // Compile model from schema
