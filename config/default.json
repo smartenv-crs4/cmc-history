@@ -1,22 +1,38 @@
 {
   "production": {
-    "dbHost":"127.0.0.1",
-    "dbPort":"27017",
-    "dbName":"CMCHISTORY",
-    "limit":50,
-    "skip":0,
-    "logfile":"/var/log/CMC-History-Microservice.log",
-      "enableCors":true,
-    "authUrl":"http://localhost:3005",
-    "auth_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoibXMiLCJpc3MiOiJub3QgdXNlZCBmbyBtcyIsImVtYWlsIjoibm90IHVzZWQgZm8gbXMiLCJ0eXBlIjoiY21jLWhpc3RvcnkiLCJlbmFibGVkIjp0cnVlLCJleHAiOjE4MzUxOTUyMTI3MzZ9.Bui058y--wby9TIsQCrxRCnRgDNk8k5-J-YaudjF6bI",
-    "decodedTokenFieldName": "mailerms",
+    "dbHost": "127.0.0.1",
+    "dbPort": "27017",
+    "dbName": "CMCHISTORY",
+    "limit": 50,
+    "skip": 0,
+    "logfile": "/var/log/CMC-History-Microservice.log",
+    "enableCors": true,
+    "authUrl": "http://localhost:3005",
+    "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoibXMiLCJpc3MiOiJub3QgdXNlZCBmbyBtcyIsImVtYWlsIjoibm90IHVzZWQgZm8gbXMiLCJ0eXBlIjoiY21jLWhpc3RvcnkiLCJlbmFibGVkIjp0cnVlLCJleHAiOjE4MzUxOTUyMTI3MzZ9.Bui058y--wby9TIsQCrxRCnRgDNk8k5-J-YaudjF6bI",
+    "decodedTokenFieldName": "",
     "urlSupport": "http://localhost:3015/support/",
-    "templates": {
-      "template1": {
-        "subject":"test template",
-        "text":"template di prova {{body}}",
-        "html":"<h1>Template CMC IOT</h1><p>{{body}}</p><p style='font:italic 9px;color:lightgrey;'>Esempio footer</p>",
-        "from":"your_from_email_address"
+    "restApiVersion": "0.1"
+  },
+  "dev": {
+    "dbHost": "127.0.0.1",
+    "dbPort": "27017",
+    "dbName": "CMCHISTORYDEV",
+    "limit": 50,
+    "skip": 0,
+    "logfile": "/var/log/CMC-History-Microservice.log",
+    "enableCors": true,
+    "authUrl": "http://localhost:3005",
+    "auth_token": "",
+    "decodedTokenFieldName": "",
+    "urlSupport": "http://localhost:3015/support/",
+    "testConfig": {
+      "usertokens": ["UserType1"],
+      "admintokens": ["admin"],
+      "authApptokens": ["webui"],
+      "testConfig": {
+        "usertokens": ["UserType1"],
+        "admintokens": ["admin"],
+        "authApptokens": ["webui"]
       }
     },
     "restApiVersion": "0.1"
