@@ -16,6 +16,8 @@
     "mongoose": "^5.0.7",
     "morgan": "~1.9.0",
     "propertiesmanager": "^2.0.3",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.5",
     "supertest": "^3.0.0",
     "tokenmanager": "^3.1.0"

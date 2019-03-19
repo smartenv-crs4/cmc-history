@@ -4,7 +4,7 @@
  ############################################################################
  *                         Copyright 2018 CRS4                                 *
  *       This file is part of CRS4 Microservice IOT - Histories (CMC-Hist).       *
- *                                                                            *
+ *                                                                           *
  *       CMC-Hist is free software: you can redistribute it and/or modify     *
  *     it under the terms of the GNU General Public License as published by   *
  *       the Free Software Foundation, either version 3 of the License, or    *
@@ -55,7 +55,7 @@ exports.saveAnHistory = async function(req, res, next) {
     history;
   try {
     history = await saveHistory(idDevice, meta);
-    console.log("Saved a new history: " + JSON.stringify(history))
+    console.log("Saved a new history for device id: "  + idDevice);
     return res.status(201).send(history.toJSON());
   } catch (err) {
     message = 'Error saving an history';
@@ -156,41 +156,3 @@ console.log("Start date: " + new Date(startDate) )
   });
 }
 
-// route handler for histories reading by dates
-exports.readHistoriesByDates = async function(req, res, next) {
-  var id = (req.params.id).toString();
-  // startdate param in the form: yyyy-mm-dd hh:mm:ss
-  var startDate =  (req.params.startdate).toString();
-  var endDate =  (req.params.enddate).toString();
-
-  if (!id) {
-    message = 'No device id';
-    return res.status(500).json({
-      "error": 500,
-      "errorMessage": message,
-      "moreInfo": config.urlSupport + "500"
-    });
-  }
-
-  if (!startDate || !endDate) {
-    message = 'Date range not valid';
-    return res.status(500).json({
-      "error": 500,
-      "errorMessage": message,
-      "moreInfo": config.urlSupport + "500"
-    });
-  }
-
-console.log("Start date: " + new Date(startDate) )
-  History.find({idDevice: id, "time": {"$gte": new Date(startDate), "$lt": new Date(endDate)}}).then(function(histories) {
-    console.log("Get all histories for device id: " + id + " and timestamp range");
-    return res.status(201).send(histories);
-  }).catch(error => {
-    message = "Error retrieving all histories with device id: " + id + " and timestamp range";
-    return res.status(500).json({
-      "error": 500,
-      "errorMessage": message,
-      "moreInfo": config.urlSupport + "500"
-    });
-  });
-}
