@@ -14,7 +14,7 @@
     "express": "^4.15.5",
     "jade": "~1.11.0",
     "mongoose": "^5.0.7",
-    "morgan": "~1.9.0",
+    "morgan": "~1.9.1",
     "propertiesmanager": "^2.0.3",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
